@@ -1,0 +1,19 @@
+{
+  "name": "async-flow-control",
+  "version": "0.0.1",
+  "homepage": "https://github.com/neurosnap/async-flow-control",
+  "authors": [
+    "Eric Bower <neurosnap@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "impress.js": "~0.5.3"
+  }
+}

@@ -1,7 +1,54 @@
 extends layout
 
+block css
+  link(rel='stylesheet', href='/css/index.css')
+
 block js
+  script(src='./bower/impress.js/js/impress.js')
+  script.
+    impress().init();
   script(src='/js/dist/index.js')
 
 block content
-  p Wassup
+  div.fallback-message
+    p Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.
+    p For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.
+
+  div#impress
+    div(id='title', class='step', data-x='0' data-y='0' data-scale='4')
+      h1 Avoiding the pyramid of doom
+      span(class='try') by Eric Bower
+      p
+        a(href='http://neurosnap.net/') neurosnap.net
+      p
+        a(href='https://github.com/neurosnap') <i class='fa fa-github'></i> @neurosnap
+      p
+        a(href='https://twitter.com/neurosnap') <i class='fa fa-twitter'></i> @neurosnap
+
+    div(id='what', class='step slide', data-x='-1500', data-y='-1000')
+      p
+        ol
+          li Code structure helps determine its clarity and quality.
+          li Indentation is necessary for visualizing the flow control of a program
+          li Abrupt code indentation is what is referred to as <b>the pyramid of doom</b>
+
+    div(id='pod', class='step slide' data-z='-3000' data-rotate='-90' data-x='800', data-y='-3000' data-scale='5')
+      p Pyramid of Doom, <i style='color: tomato;'>NSFW</style>
+      pre
+        code.javascript.
+          // Code uses jQuery to illustrate the Pyramid of Doom
+          (function($) {
+            $(function(){
+              $("button").click(function(e) {
+                $.get("/test.json", function(data, textStatus, jqXHR) {
+                  $(".list").each(function() {
+                    $(this).click(function(e) {
+                      setTimeout(function() {
+                        alert("Hello World!");
+                      }, 1000);
+                    });
+                  });
+                });
+              });
+            });
+          })(jQuery);

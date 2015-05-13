@@ -43,7 +43,12 @@
       "browserify-shim"
     ]
   },
+  "browser": {
+    "impress": "./public/bower/impress.js/js/impress.js",
+    "hljs-js": "./node_modules/highlight.js/lib/languages/javascript"
+  },
   "browserify-shim": {
-    "jquery": "global:$"
+    "jquery": "global:$",
+    "impress": "global:impress"
   }
 }
