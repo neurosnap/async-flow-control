@@ -1,12 +1,12 @@
 @import (less) '../../node_modules/highlight.js/styles/zenburn.css';
 
 html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+h1, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
-dl, dt, dd, ol, ul, li,
+dl, dt, dd,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
@@ -30,18 +30,24 @@ body {
   line-height: 1;
 }
 ol, ul {
-  list-style: square;
+  margin-top: 10px;
   li {
     margin-bottom: 15px;
   }
 }
-blockquote, q {
-  quotes: none;
+
+img {
+  height: auto;
+  width: 100%;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
+
+blockquote {
+  font-style: normal helvetica, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  padding-left: 15px;
+  border-left: 3px solid #ccc;
 }
 
 table {
@@ -89,6 +95,15 @@ a:hover {
 /* enable clicking on elements 'hiding' behind body in 3D */
 body     { pointer-events: none; }
 #impress { pointer-events: auto; }
+
+h1 {
+  &.title {
+    text-align: center;
+    font-size: 2em;
+    color: #FF9900;
+    line-height: 1em;
+  }
+}
 
 /* COMMON STEP STYLES */
 
@@ -358,8 +373,8 @@ body     { pointer-events: none; }
 .slide {
   display: block;
 
-  width: 900px;
-  height: 700px;
+  width: 1200px;
+  height: 860px;
 
   padding: 40px 60px;
 
