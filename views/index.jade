@@ -142,26 +142,26 @@ block content
           });
 
     div(id='method_three', class='step slide' data-z='-3000' data-rotate='-90' data-x='9600', data-y='-1800' data-scale='5')
-      h1(class='title') Method #3: Third Party Library 'Async'
+      h1(class='title') Method #3: Third Party Library '<a href='https://github.com/caolan/async#parallel'>async</a>'
       pre
         code.javascript.
           router.get('/parallel/', function(req, res, next) {
-            function parallel_cb(site) {
-              return function(callback) {
-                get(compile_url(site), function(err, response) {
-                  callback(err, response);
-                });
-              };
-            }
-            async.parallel([
-              parallel_cb('detroitnews.com'),
-              parallel_cb('freep.com'),
-              ... // truncated for brevity
-            ], function(err, responses) {
-              let articles = [];
-              for (let i = 0; i < responses.length; i++) {
-                articles = articles.concat(process_response(responses[i]));
+              function parallel_cb(site) {
+                  return function(callback) {
+                      get(compile_url(site), function(err, response) {
+                          callback(err, response);
+                      });
+                  };
               }
-              res.json(articles);
-            });
+              async.parallel([
+                  parallel_cb('detroitnews.com'),
+                  parallel_cb('freep.com'),
+                  ... // truncated for brevity
+              ], function(err, responses) {
+                  let articles = [];
+                  for (let i = 0; i < responses.length; i++) {
+                      articles = articles.concat(process_response(responses[i]));
+                  }
+                  res.json(articles);
+              });
           });
