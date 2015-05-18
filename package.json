@@ -6,6 +6,7 @@
     "start": "node --harmony ./bin/www"
   },
   "dependencies": {
+    "async": "^0.9.0",
     "babel": "^5.2.17",
     "babelify": "^6.1.0",
     "bluebird": "^2.9.25",
@@ -21,6 +22,7 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
+    "highlight.js": "^8.5.0",
     "jade": "^1.9.2",
     "lodash": "^3.8.0",
     "log4js": "^0.6.24",
