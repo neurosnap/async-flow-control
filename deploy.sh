@@ -4,6 +4,12 @@ printer(){
 	printf '=%.0s' {1..40} && printf '\n'
 }
 
+printer "Installing node modules ..."
+npm install
+
+printer "Installing bower packages ..."
+bower install
+
 printer "Running gulp ..."
 gulp
 

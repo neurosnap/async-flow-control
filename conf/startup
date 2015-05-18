@@ -2,7 +2,7 @@
 
 APP_DIR=/srv/sites/afc
 
-export NODE_PORT="3000"
+export NODE_PORT="3001"
 export NODE_ENV="production"
 
 cd $APP_DIR
