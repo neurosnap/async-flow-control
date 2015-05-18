@@ -142,7 +142,6 @@ router.get('/coroutine/', Promise.coroutine(function* (req, res, next) {
   } catch (err) {
     throw err;
   }
-  console.log(responses);
   for (let i = 0; i < responses.length; i++) {
     articles = articles.concat(process_response(responses[i]));
   }
