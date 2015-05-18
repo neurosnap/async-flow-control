@@ -166,7 +166,7 @@ block content
           var current = Promise.resolve();
           Promise.map(config.sites, function(url) {
               current = current.then(function() {
-                return getAsync(compile_url(url));
+                  return getAsync(compile_url(url));
               });
               return current;
           }).map(function(response) {
