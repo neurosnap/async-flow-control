@@ -25,7 +25,7 @@ block content
       p
         a(href='https://twitter.com/neurosnap') <i class='fa fa-twitter'></i> @neurosnap
 
-    div(id='what', class='step slide', data-x='-2800', data-y='-1000')
+    div(id='what', class='step slide', data-x='-4500', data-y='-1000')
       h1(class='title') What is the Pyramid of Doom?
       ul
         li Code structure helps determine its function, clarity, and quality.
@@ -38,7 +38,7 @@ block content
         | more than 3 levels of indentation, you're screwed anyway, and should fix
         | your program. <a href='https://www.kernel.org/doc/Documentation/CodingStyle'>Linux CodeStyle</a>
 
-    div(id='noam', class='step slide', data-x='-2800', data-y='-2000')
+    div(id='noam', class='step slide', data-x='-4500', data-y='-2000')
       h1(class='title') Even Noam Chomsky Threw Down
       ul
         li.
@@ -50,10 +50,10 @@ block content
           <a href='http://www.amazon.com/Software-Reliability-Principles-Glenford-Myers/dp/0471627658'>Software Reliability: Principles and Practices</a> <br />
           <a href='http://www.amazon.com/Software-Engineering-Concepts-Professional-Vol/dp/0201122316%3FSubscriptionId%3D0JRA4J6WAV0RTAZVS6R2%26tag%3Dworldcat-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0201122316'>Software Engineering Concepts</a>
 
-      p(class='text-center')
-        img(src='/img/noam.jpg', style='height: 450px; width: auto;')
+      p(class='text-center', style='height: 25vh;')
+        img(src='/img/noam.jpg')
 
-    div(id='study', class='step slide', data-x='-1500', data-y='-1000')
+    div(id='study', class='step slide', data-x='-2500', data-y='-1000')
       h1(class='title') Measuring nesting of popular Github repositories <a href='https://github.com/neurosnap/code-nest'>Github Repo</a>
       ul
         li We found the most popular (stars, forks) javascript libraries on Github
@@ -62,21 +62,21 @@ block content
         li We formatted all lines of code to 4-space indentation
         li We iterated through all lines of code to determine their average indendation levels
 
-    div(id='result_one', class='step slide', data-x='-1500', data-y='-2000')
-      p(class='text-center')
+    div(id='result_one', class='step slide big-slide', data-x='-2500', data-y='-2000')
+      p(class='text-center hundy')
         img(src='/img/avg_indent_stars.png')
 
-    div(id='result_two', class='step slide', data-x='-1500', data-y='-3000')
-      p(class='text-center')
+    div(id='result_two', class='step slide big-slide', data-x='-2500', data-y='-3500')
+      p(class='text-center hundy')
         img(src='/img/avg_indent_forks.png')
 
-    div(id='conclusion', class='step slide' data-x='-1500', data-y='-4000')
+    div(id='conclusion', class='step slide' data-x='-2500', data-y='-5000')
       h1(class='title') What does this "study" tell us?
       ul
         li Reinforces what the experts have said
         li Most popular javascript libraries average <strong>three</strong> levels of indentation
 
-      p(class='text-center')
+      p(class='text-center forty')
         img(src='/img/no_clue.jpg')
 
     div(id='task', class='step slide' data-x='-2800', data-y='1000')
@@ -94,9 +94,8 @@ block content
         li Sort them descending by real-time popularity
         li Example: <a href='http://detroitnow.io' target='_blank'>detroitnow.io</a>
 
-    div(id='method_one', class='step slide' data-z='-3000' data-rotate='-90' data-x='800', data-y='-1800' data-scale='5')
-      h1(class='title') Method #1: Callback Hell, <i style='color: tomato;'>NSFW</i>
-      <p><a href='/callback-hell/' target='_blank'>Demo</a></p>
+    div(id='method_one', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='800', data-y='-1800' data-scale='5')
+      h1(class='title') Method #1: Callback Hell, <i style='color: tomato;'>NSFW</i> <a href='/callback-hell/' target='_blank'>Demo</a>
       pre
         code.javascript.
           var articles = [];
@@ -119,9 +118,8 @@ block content
           });
 
 
-    div(id='method_two', class='step slide' data-z='-3000' data-rotate='-90' data-x='5200', data-y='-1800' data-scale='5')
-      h1(class='title') Method #2: Callbacks with Counter
-      <p><a href='/callback-counter/' target='_blank'>Demo</a></p>
+    div(id='method_two', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='6500', data-y='-1800' data-scale='5')
+      h1(class='title') Method #2: Callbacks with Counter <a href='/callback-counter/' target='_blank'>Demo</a>
       pre
         code.javascript.
           var articles = [];
@@ -132,15 +130,14 @@ block content
                   if (err) throw err;
                   articles = articles.concat(process_response(response));
                   response_counter++;
-                  if (response_counter == 7) {
+                  if (response_counter == config.sites.length) {
                     console.log(articles);
                   }
               }.bind(this, i));
           }
 
-    div(id='method_three', class='step slide' data-z='-3000' data-rotate='-90' data-x='9600', data-y='-1800' data-scale='5')
-      h1(class='title') Method #3: Third Party Library '<a href='https://github.com/caolan/async#parallel'>async</a>'
-      <p><a href='/parallel/' target='_blank'>Demo</a></p>
+    div(id='method_three', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='12200', data-y='-1800' data-scale='5')
+      h1(class='title') Method #3: Third Party Library '<a href='https://github.com/caolan/async#parallel'>async</a>' <a href='/parallel/' target='_blank'>Demo</a>
       pre
         code.javascript.
           function parallel_cb(site) {
@@ -152,8 +149,7 @@ block content
           }
           async.parallel([
               parallel_cb('detroitnews.com'),
-              parallel_cb('freep.com'),
-              ... // truncated for brevity
+              parallel_cb('freep.com')
           ], function(err, responses) {
               if (err) throw err;
               var articles = [];
@@ -163,9 +159,8 @@ block content
               console.log(articles);
           });
 
-    div(id='method_four', class='step slide' data-z='-3000' data-rotate='-90' data-x='14000', data-y='-1800' data-scale='5')
-      h1(class='title') Method #4: Promises using '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>'
-      <p><a href='/promise/' target='_blank'>Demo</a></p>
+    div(id='method_four', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='17800', data-y='-1800' data-scale='5')
+      h1(class='title') Method #4: Promises using '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>' <a href='/promise/' target='_blank'>Demo</a>
       pre
         code.javascript.
           var current = Promise.resolve();
@@ -182,9 +177,8 @@ block content
               throw err;
           });
 
-    div(id='method_five', class='step slide' data-z='-3000' data-rotate='-90' data-x='18400', data-y='-1800' data-scale='5')
-      h1(class='title') Method #5: Coroutines using ES6 & '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>'
-      <p><a href='/coroutine/' target='_blank'>Demo</a></p>
+    div(id='method_five', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='23400', data-y='-1800' data-scale='5')
+      h1(class='title') Method #5: Coroutines using ES6 & '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>' <a href='/coroutine/' target='_blank'>Demo</a>
       pre
         code.javascript.
           (Promise.coroutine(function* () {
@@ -194,8 +188,7 @@ block content
                 //responses = yield [for (site of config.sites) getAsync(compile_url(site))];
                 responses = yield [
                     getAsync(compile_url('detroitnews.com')),
-                    getAsync(compile_url('freep.com')),
-                    ... // truncated for brevity
+                    getAsync(compile_url('freep.com'))
                 ];
             } catch (err) {
                 throw err;
@@ -206,7 +199,7 @@ block content
             console.log(articles);
           }))();
 
-    div(id='method_six', class='step slide' data-z='-3000' data-rotate='-90' data-x='22800', data-y='-1800' data-scale='5')
+    div(id='method_six', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='29000', data-y='-1800' data-scale='5')
       h1(class='title') Method #6: Async/Await using ES7
       pre
         code.javascript.
@@ -217,8 +210,7 @@ block content
                 //responses = await [for (site of config.sites) getAsync(compile_url(site))];
                 responses = await [
                     getAsync(compile_url('detroitnews.com')),
-                    getAsync(compile_url('freep.com')),
-                    ... // truncated for brevity
+                    getAsync(compile_url('freep.com'))
                 ];
             } catch (err) {
                 throw err;
