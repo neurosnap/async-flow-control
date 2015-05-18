@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 });
 
 // Callback hell
-router.get('/cbh/', function(req, res, next) {
+router.get('/callback-hell/', function(req, res, next) {
   let articles = [];
   get(compile_url('freep.com'), function(err, freep_response) {
     if (err) throw err;
@@ -48,7 +48,6 @@ router.get('/cbh/', function(req, res, next) {
               get(compile_url('thetimesherald.com'), function(err, herald_response) {
                 if (err) throw err;
                 articles = articles.concat(process_response(herald_response));
-                console.log('RECEIVED ALL DATA, SEND TO BROWSER');
                 res.json(articles);
               });
             });
@@ -60,7 +59,7 @@ router.get('/cbh/', function(req, res, next) {
 });
 
 // Callbacks with counter
-router.get('/cbhc/', function(req, res, next) {
+router.get('/callback-counter/', function(req, res, next) {
   let articles = [];
   let response_counter = 0;
   for (let i = 0; i < config.sites.length; i++) {
@@ -85,7 +84,7 @@ router.get('/parallel/', function(req, res, next) {
       });
     };
   }
-
+  //[for (site of config.sites) parallel_cb(site))];
   async.parallel([
     parallel_cb('detroitnews.com'),
     parallel_cb('freep.com'),
@@ -95,6 +94,7 @@ router.get('/parallel/', function(req, res, next) {
     parallel_cb('livingstondaily.com'),
     parallel_cb('thetimesherald.com')
   ], function(err, responses) {
+    if (err) throw err;
     let articles = [];
     for (let i = 0; i < responses.length; i++) {
       articles = articles.concat(process_response(responses[i]));
@@ -103,11 +103,56 @@ router.get('/parallel/', function(req, res, next) {
   });
 });
 
+// Third party library 'bluebird' promise
+router.get('/promise/', function(req, res, next) {
+  let current = Promise.resolve();
+  Promise.map(config.sites, function(url) {
+    current = current.then(function() {
+      return getAsync(compile_url(url));
+    });
+    return current;
+  }).map(function(response) {
+    return process_response(response);
+  }).then(function(results) {
+    res.json(_.flatten(results));
+  }).catch(function(err) {
+    throw err;
+  });
+});
+
+// Third party library 'bluebird' coroutines
+router.get('/coroutine/', Promise.coroutine(function* (req, res, next) {
+  let articles = [];
+  let responses;
+  try {
+    //let responses = yield [for (site of config.sites) getAsync(compile_url(site))];
+    responses = yield [
+      getAsync(compile_url('detroitnews.com')),
+      getAsync(compile_url('freep.com')),
+      getAsync(compile_url('battlecreekenquirer.com')),
+      getAsync(compile_url('hometownlife.com')),
+      getAsync(compile_url('lansingstatejournal.com')),
+      getAsync(compile_url('livingstondaily.com')),
+      getAsync(compile_url('thetimesherald.com'))
+    ];
+  } catch (err) {
+    throw err;
+  }
+  console.log(responses);
+  for (let i = 0; i < responses.length; i++) {
+    articles = articles.concat(process_response(responses[i]));
+  }
+  res.json(articles);
+}));
+
 function process_response(response) {
-  let body = response.body;
+  if (Array.isArray(response)) {
+    response = response[0];
+  }
   if (response.statusCode != 200) {
     console.log(`Status Code: ${response.statusCode}: ${response.statusMessage}`);
   }
+  let body = response.body || response[1];
   if (body.hasOwnProperty('error') || !body.hasOwnProperty('pages')) {
     console.log(`${body.error}: ${response.req.path}`);
     return [];

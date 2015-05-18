@@ -30,13 +30,11 @@ block content
       ul
         li Code structure helps determine its function, clarity, and quality.
         li Indentation is necessary for visualizing the flow control of a program
-        li Abrupt code indentation is what is referred to as <b>the pyramid of doom</b>
-        li Linus Torvalds thinks that greater than three levels of indentation is a code smell which is part of a greater design flaw
+        li Abrupt code indentation is called <b>the pyramid of doom</b>
+        li Linus Torvalds thinks that greater than three levels of indentation is code smell
 
       blockquote
-        | Now, some people will claim that having 8-character indentations makes
-        | the code move too far to the right, and makes it hard to read on a
-        | 80-character terminal screen.  The answer to that is that if you need
+        | The answer to that is that if you need
         | more than 3 levels of indentation, you're screwed anyway, and should fix
         | your program. <a href='https://www.kernel.org/doc/Documentation/CodingStyle'>Linux CodeStyle</a>
 
@@ -56,13 +54,13 @@ block content
         img(src='/img/noam.jpg', style='height: 450px; width: auto;')
 
     div(id='study', class='step slide', data-x='-1500', data-y='-1000')
-      h1(class='title') Measuring nesting of popular Github repositories
+      h1(class='title') Measuring nesting of popular Github repositories <a href='https://github.com/neurosnap/code-nest'>Github Repo</a>
       ul
-        li We found the most popular (stars, forks) javascript libraries on Github using their API
+        li We found the most popular (stars, forks) javascript libraries on Github
         li We downloaded the repositories locally
         li We removed non-javascript code from those repositories
         li We formatted all lines of code to 4-space indentation
-        li We iterated through all lines of code to determine their average, mode, max, stddev, variance indendation levels
+        li We iterated through all lines of code to determine their average indendation levels
 
     div(id='result_one', class='step slide', data-x='-1500', data-y='-2000')
       p(class='text-center')
@@ -75,8 +73,8 @@ block content
     div(id='conclusion', class='step slide' data-x='-1500', data-y='-4000')
       h1(class='title') What does this "study" tell us?
       ul
-        li It appears to reinforce what the experts have said
-        li Most popular javascript libraries sit at an average indentation level of 3
+        li Reinforces what the experts have said
+        li Most popular javascript libraries average <strong>three</strong> levels of indentation
 
       p(class='text-center')
         img(src='/img/no_clue.jpg')
@@ -98,70 +96,135 @@ block content
 
     div(id='method_one', class='step slide' data-z='-3000' data-rotate='-90' data-x='800', data-y='-1800' data-scale='5')
       h1(class='title') Method #1: Callback Hell, <i style='color: tomato;'>NSFW</i>
+      <p><a href='/callback-hell/' target='_blank'>Demo</a></p>
       pre
         code.javascript.
-          router.get('/cbh/', function(req, res, next) {
-              let articles = [];
-              get(compile_url('freep.com'), function(err, freep_response) {
+          var articles = [];
+          get(compile_url('freep.com'), function(err, freep_response) {
+              if (err) throw err;
+              articles = articles.concat(process_response(freep_response));
+              get(compile_url('detroitnews.com'), function(err, det_response) {
                   if (err) throw err;
-                  articles = articles.concat(process_response(freep_response));
-                  get(compile_url('detroitnews.com'), function(err, det_response) {
+                  articles = articles.concat(process_response(det_response));
+                  get(compile_url('battlecreekenquirer.com'), function(err, battle_response) {
                       if (err) throw err;
-                      articles = articles.concat(process_response(det_response));
-                      get(compile_url('battlecreekenquirer.com'), function(err, battle_response) {
+                      articles = articles.concat(process_response(battle_response));
+                      get(compile_url('hometownlife.com'), function(err, hometown_response) {
                           if (err) throw err;
-                          articles = articles.concat(process_response(battle_response));
-                          get(compile_url('hometownlife.com'), function(err, hometown_response) {
-                              if (err) throw err;
-                              articles = articles.concat(process_response(hometown_response));
-                              res.json(articles);
-                          });
+                          articles = articles.concat(process_response(hometown_response));
+                          console.log(articles);
                       });
                   });
               });
           });
 
+
     div(id='method_two', class='step slide' data-z='-3000' data-rotate='-90' data-x='5200', data-y='-1800' data-scale='5')
       h1(class='title') Method #2: Callbacks with Counter
+      <p><a href='/callback-counter/' target='_blank'>Demo</a></p>
       pre
         code.javascript.
-          router.get('/cbhl/', function(req, res, next) {
-              let articles = [];
-              let response_counter = 0;
-              for (let i = 0; i < config.sites.length; i++) {
-                  let site = config.sites[i];
-                  get(compile_url(site), function(index, err, response) {
-                      if (err) throw err;
-                      articles = articles.concat(process_response(response));
-                      response_counter++;
-                      if (response_counter == 7) {
-                        res.json(articles);
-                      }
-                  }.bind(this, i));
-              }
-          });
+          var articles = [];
+          var response_counter = 0;
+          for (var i = 0; i < config.sites.length; i++) {
+              var site = config.sites[i];
+              get(compile_url(site), function(index, err, response) {
+                  if (err) throw err;
+                  articles = articles.concat(process_response(response));
+                  response_counter++;
+                  if (response_counter == 7) {
+                    console.log(articles);
+                  }
+              }.bind(this, i));
+          }
 
     div(id='method_three', class='step slide' data-z='-3000' data-rotate='-90' data-x='9600', data-y='-1800' data-scale='5')
       h1(class='title') Method #3: Third Party Library '<a href='https://github.com/caolan/async#parallel'>async</a>'
+      <p><a href='/parallel/' target='_blank'>Demo</a></p>
       pre
         code.javascript.
-          router.get('/parallel/', function(req, res, next) {
-              function parallel_cb(site) {
-                  return function(callback) {
-                      get(compile_url(site), function(err, response) {
-                          callback(err, response);
-                      });
-                  };
+          function parallel_cb(site) {
+              return function(callback) {
+                  get(compile_url(site), function(err, response) {
+                      callback(err, response);
+                  });
+              };
+          }
+          async.parallel([
+              parallel_cb('detroitnews.com'),
+              parallel_cb('freep.com'),
+              ... // truncated for brevity
+          ], function(err, responses) {
+              if (err) throw err;
+              var articles = [];
+              for (var i = 0; i < responses.length; i++) {
+                  articles = articles.concat(process_response(responses[i]));
               }
-              async.parallel([
-                  parallel_cb('detroitnews.com'),
-                  parallel_cb('freep.com'),
-                  ... // truncated for brevity
-              ], function(err, responses) {
-                  let articles = [];
-                  for (let i = 0; i < responses.length; i++) {
-                      articles = articles.concat(process_response(responses[i]));
-                  }
-                  res.json(articles);
-              });
+              console.log(articles);
           });
+
+    div(id='method_four', class='step slide' data-z='-3000' data-rotate='-90' data-x='14000', data-y='-1800' data-scale='5')
+      h1(class='title') Method #4: Promises using '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>'
+      <p><a href='/promise/' target='_blank'>Demo</a></p>
+      pre
+        code.javascript.
+          var current = Promise.resolve();
+          Promise.map(config.sites, function(url) {
+              current = current.then(function() {
+                return getAsync(compile_url(url));
+              });
+              return current;
+          }).map(function(response) {
+              return process_response(response);
+          }).then(function(results) {
+              console.log(_.flatten(results));
+          }).catch(function(err) {
+              throw err;
+          });
+
+    div(id='method_five', class='step slide' data-z='-3000' data-rotate='-90' data-x='18400', data-y='-1800' data-scale='5')
+      h1(class='title') Method #5: Coroutines using ES6 & '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>'
+      <p><a href='/coroutine/' target='_blank'>Demo</a></p>
+      pre
+        code.javascript.
+          (Promise.coroutine(function* () {
+            let articles = [];
+            let responses;
+            try {
+                //responses = yield [for (site of config.sites) getAsync(compile_url(site))];
+                responses = yield [
+                    getAsync(compile_url('detroitnews.com')),
+                    getAsync(compile_url('freep.com')),
+                    ... // truncated for brevity
+                ];
+            } catch (err) {
+                throw err;
+            }
+            for (let i = 0; i < responses.length; i++) {
+                articles = articles.concat(process_response(responses[i]));
+            }
+            console.log(articles);
+          }))();
+
+    div(id='method_six', class='step slide' data-z='-3000' data-rotate='-90' data-x='22800', data-y='-1800' data-scale='5')
+      h1(class='title') Method #6: Async/Await using ES7
+      pre
+        code.javascript.
+          (async function() {
+            let articles = [];
+            let responses;
+            try {
+                //responses = await [for (site of config.sites) getAsync(compile_url(site))];
+                responses = await [
+                    getAsync(compile_url('detroitnews.com')),
+                    getAsync(compile_url('freep.com')),
+                    ... // truncated for brevity
+                ];
+            } catch (err) {
+                throw err;
+            }
+            for (let i = 0; i < responses.length; i++) {
+                articles = articles.concat(process_response(responses[i]));
+            }
+            console.log(articles);
+          }))();

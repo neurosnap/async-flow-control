@@ -45,7 +45,7 @@
   },
   "browser": {
     "impress": "./public/bower/impress.js/js/impress.js",
-    "hljs-js": "./node_modules/highlight.js/lib/languages/javascript"
+    "hljs-js": "./node_modules/highlight.js/lib/languages/javascript.js"
   },
   "browserify-shim": {
     "jquery": "global:$",
