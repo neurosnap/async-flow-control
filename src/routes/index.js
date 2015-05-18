@@ -7,12 +7,16 @@ import Promise from 'bluebird';
 import async from 'async';
 import { get } from 'needle';
 
-import config from '../../config';
+import { api_key, sites } from '../../config';
 import logger from '../logger';
 
 var router = express.Router();
 var getAsync = Promise.promisify(get);
 var chartbeat_url = 'http://api.chartbeat.com';
+
+if (typeof sites === 'undefined' || !Array.isArray(sites) || sites.length < 1) {
+  throw new Error('`sites` in config.js must be an array and not empty');
+}
 
 // Required to handle an array of promises
 // https://github.com/petkaantonov/bluebird/blob/master/API.md#promisecoroutineaddyieldhandlerfunction-handler---void
@@ -62,13 +66,13 @@ router.get('/callback-hell/', function(req, res, next) {
 router.get('/callback-counter/', function(req, res, next) {
   let articles = [];
   let response_counter = 0;
-  for (let i = 0; i < config.sites.length; i++) {
-    let site = config.sites[i];
+  for (let i = 0; i < sites.length; i++) {
+    let site = sites[i];
     get(compile_url(site), function(index, err, response) {
       if (err) throw err;
       articles = articles.concat(process_response(response));
       response_counter++;
-      if (response_counter == config.sites.length) {
+      if (response_counter == sites.length) {
         res.json(articles);
       }
     }.bind(this, i));
@@ -84,7 +88,7 @@ router.get('/parallel/', function(req, res, next) {
       });
     };
   }
-  //[for (site of config.sites) parallel_cb(site))];
+  //[for (site of sites) parallel_cb(site))];
   async.parallel([
     parallel_cb('detroitnews.com'),
     parallel_cb('freep.com'),
@@ -106,7 +110,7 @@ router.get('/parallel/', function(req, res, next) {
 // Third party library 'bluebird' promise
 router.get('/promise/', function(req, res, next) {
   let current = Promise.resolve();
-  Promise.map(config.sites, function(url) {
+  Promise.map(sites, function(url) {
     current = current.then(function() {
       return getAsync(compile_url(url));
     });
@@ -125,7 +129,7 @@ router.get('/coroutine/', Promise.coroutine(function* (req, res, next) {
   let articles = [];
   let responses;
   try {
-    //let responses = yield [for (site of config.sites) getAsync(compile_url(site))];
+    //let responses = yield [for (site of sites) getAsync(compile_url(site))];
     responses = yield [
       getAsync(compile_url('detroitnews.com')),
       getAsync(compile_url('freep.com')),
@@ -181,8 +185,11 @@ function is_article(url) {
   return false;
 }
 
-function compile_url(host, api_key=config.api_key, limit=50) {
-  return `${chartbeat_url}/live/toppages/v3/?limit=${limit}&apikey=${api_key}&host=${host}`;
+function compile_url(host, akey=api_key, limit=50) {
+  if (typeof akey === 'undefined') {
+    throw new Error('`api_key` not found in config.js');
+  }
+  return `${chartbeat_url}/live/toppages/v3/?limit=${limit}&apikey=${akey}&host=${host}`;
 };
 
 module.exports = router;
