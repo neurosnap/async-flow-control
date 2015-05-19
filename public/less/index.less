@@ -21,6 +21,10 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+th {
+  font-weight: bold;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -78,11 +82,11 @@ b, strong { font-weight: bold }
 i, em { font-style: italic}
 
 a {
-  color: inherit;
+  font-size: 0.8em;
+  color: #000;
   text-decoration: none;
   padding: 0 0.1em;
-  background: rgba(255,255,255,0.5);
-  text-shadow: -1px -1px 2px rgba(100,100,100,0.9);
+  background: rgba(255,255,255,0.8);
   border-radius: 0.2em;
 
   -webkit-transition: 0.5s;
@@ -142,6 +146,18 @@ h1 {
   height: 100%;
 }
 
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
 #title {
   padding: 0;
   h1 {
@@ -166,24 +182,11 @@ h1 {
     -o-transform:      translateZ(20px);
     transform:         translateZ(20px);
   }
-}
-
-/* tiny ideas */
-
-#tiny {
-  width: 500px;
-  text-align: center;
-}
-
-#ing {
-  width: 500px;
-}
-
-/* on overview step everything is visible */
-
-.impress-on-overview .step {
-  opacity: 1;
-  cursor: pointer;
+  .repo {
+    position: absolute;
+    top: 1.5em;
+    left: 13em;
+  }
 }
 
 /*
@@ -192,29 +195,17 @@ h1 {
 
 .slide {
   display: block;
-
-  width: 75vw;
-  height: 80vh;
-  &.big-slide {
-    width: 75vw;
-    height: 97vh;
-  }
-
+  min-width: 70vw;
+  width: auto;
   padding: 40px 60px;
-
   border-radius: 10px;
-
   background-color: #3f3f3f;
-
   box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
   border: 1px solid rgba(0, 0, 0, .3);
-
   color: #dcdcdc;
   text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
-
   font-size: 30px;
   line-height: 36px;
-
   letter-spacing: -1px;
 }
 

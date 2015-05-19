@@ -88,16 +88,7 @@ router.get('/parallel/', function(req, res, next) {
       });
     };
   }
-  //[for (site of sites) parallel_cb(site))];
-  async.parallel([
-    parallel_cb('detroitnews.com'),
-    parallel_cb('freep.com'),
-    parallel_cb('battlecreekenquirer.com'),
-    parallel_cb('hometownlife.com'),
-    parallel_cb('lansingstatejournal.com'),
-    parallel_cb('livingstondaily.com'),
-    parallel_cb('thetimesherald.com')
-  ], function(err, responses) {
+  async.parallel([for (site of sites) parallel_cb(site))], function(err, responses) {
     if (err) throw err;
     let articles = [];
     for (let i = 0; i < responses.length; i++) {
@@ -129,16 +120,7 @@ router.get('/coroutine/', Promise.coroutine(function* (req, res, next) {
   let articles = [];
   let responses;
   try {
-    //let responses = yield [for (site of sites) getAsync(compile_url(site))];
-    responses = yield [
-      getAsync(compile_url('detroitnews.com')),
-      getAsync(compile_url('freep.com')),
-      getAsync(compile_url('battlecreekenquirer.com')),
-      getAsync(compile_url('hometownlife.com')),
-      getAsync(compile_url('lansingstatejournal.com')),
-      getAsync(compile_url('livingstondaily.com')),
-      getAsync(compile_url('thetimesherald.com'))
-    ];
+    responses = yield [for (site of sites) getAsync(compile_url(site))];
   } catch (err) {
     throw err;
   }
