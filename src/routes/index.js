@@ -88,7 +88,7 @@ router.get('/parallel/', function(req, res, next) {
       });
     };
   }
-  async.parallel([for (site of sites) parallel_cb(site))], function(err, responses) {
+  async.parallel([for (site of sites) parallel_cb(site)], function(err, responses) {
     if (err) throw err;
     let articles = [];
     for (let i = 0; i < responses.length; i++) {
