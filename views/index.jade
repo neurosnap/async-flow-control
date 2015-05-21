@@ -15,17 +15,19 @@ block content
     p For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.
 
   div#impress
-    div(id='title', class='step', data-x='0' data-y='0' data-scale='4')
+    div(id='title', class='step', data-x='0' data-y='0' data-scale='5')
       h1 Avoiding the pyramid of doom
       span(class='try') by Eric Bower
       p
-        a(href='http://neurosnap.net/') neurosnap.net
+        a(href='http://github.com/neurosnap/async-flow-control', target='_blank')<i class='fa fa-github'> async-flow-control</i>
       p
-        a(href='https://github.com/neurosnap') <i class='fa fa-github'></i> @neurosnap
+        a(href='http://neurosnap.net/', target='_blank') neurosnap.net
       p
-        a(href='https://twitter.com/neurosnap') <i class='fa fa-twitter'></i> @neurosnap
+        a(href='https://github.com/neurosnap', target='_blank') <i class='fa fa-github'></i> @neurosnap
+      p
+        a(href='https://twitter.com/neurosnap', target='_blank') <i class='fa fa-twitter'></i> @neurosnap
 
-    div(id='what', class='step slide', data-x='-4500', data-y='-1000')
+    div(id='what', class='step slide', data-x='-4500', data-y='-1000', data-rotate-y='30')
       h1(class='title') What is the Pyramid of Doom?
       ul
         li Code structure helps determine its function, clarity, and quality.
@@ -38,8 +40,8 @@ block content
         | more than 3 levels of indentation, you're screwed anyway, and should fix
         | your program. <a href='https://www.kernel.org/doc/Documentation/CodingStyle'>Linux CodeStyle</a>
 
-    div(id='noam', class='step slide', data-x='-4500', data-y='-2000')
-      h1(class='title') Even Noam Chomsky Threw Down
+    div(id='deal', class='step slide', data-x='-4500', data-y='-2000', data-rotate-y='-30')
+      h1(class='title') What's the big deal?
       ul
         li.
           Studies by Noam Chomsky suggest that few people can understand more
@@ -49,12 +51,11 @@ block content
           Many researchers recommend avoiding nesting to more than four levels <br />
           <a href='http://www.amazon.com/Software-Reliability-Principles-Glenford-Myers/dp/0471627658'>Software Reliability: Principles and Practices</a> <br />
           <a href='http://www.amazon.com/Software-Engineering-Concepts-Professional-Vol/dp/0201122316%3FSubscriptionId%3D0JRA4J6WAV0RTAZVS6R2%26tag%3Dworldcat-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D0201122316'>Software Engineering Concepts</a>
+        li In python, indentation is a rule not a guideline
+        li "Flat is better than nested" is a mantra in python
 
-      p(class='text-center', style='height: 25vh;')
-        img(src='/img/noam.jpg')
-
-    div(id='study', class='step slide', data-x='-2500', data-y='-1000')
-      h1(class='title') Measuring nesting of popular Github repositories <a href='https://github.com/neurosnap/code-nest'>Github Repo</a>
+    div(id='study', class='step slide', data-x='-2500', data-y='-1000', data-rotate-y='-30')
+      h1(class='title') Measuring nesting of popular Github repositories <a href='https://github.com/neurosnap/code-nest'>Repo</a>
       ul
         li We found the most popular (stars, forks) javascript libraries on Github
         li We downloaded the repositories locally
@@ -62,15 +63,15 @@ block content
         li We formatted all lines of code to 4-space indentation
         li We iterated through all lines of code to determine their average indendation levels
 
-    div(id='result_one', class='step slide big-slide', data-x='-2500', data-y='-2000')
+    div(id='result_one', class='step slide', data-x='-2500', data-y='-2000', data-rotate-y='30')
       p(class='text-center hundy')
         img(src='/img/avg_indent_stars.png')
 
-    div(id='result_two', class='step slide big-slide', data-x='-2500', data-y='-3500')
+    div(id='result_two', class='step slide', data-x='-2500', data-y='-3500', data-rotate-y='-30')
       p(class='text-center hundy')
         img(src='/img/avg_indent_forks.png')
 
-    div(id='conclusion', class='step slide' data-x='-2500', data-y='-5000')
+    div(id='conclusion', class='step slide', data-x='-2500', data-y='-5000', data-rotate-x='30' data-rotate-y='-30')
       h1(class='title') What does this "study" tell us?
       ul
         li Reinforces what the experts have said
@@ -79,7 +80,7 @@ block content
       p(class='text-center forty')
         img(src='/img/no_clue.jpg')
 
-    div(id='task', class='step slide' data-x='-2800', data-y='1000')
+    div(id='task', class='step slide', data-x='-5000', data-y='1000', data-rotate-x='-40' data-scale='3')
       h1(class='title') The Task
       ul
         li Aggregate the most popular articles from <a href='http://chartbeat.com' target='_blank'>Chartbeat</a> for seven different news sites
@@ -94,7 +95,7 @@ block content
         li Sort them descending by real-time popularity
         li Example: <a href='http://detroitnow.io' target='_blank'>detroitnow.io</a>
 
-    div(id='method_one', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='800', data-y='-1800' data-scale='5')
+    div(id='method_one', class='step slide', data-z='-3000', data-x='800', data-y='-2000', data-rotate='-90', data-rotate-x='40', data-scale='6')
       h1(class='title') Method #1: Callback Hell, <i style='color: tomato;'>NSFW</i> <a href='/callback-hell/' target='_blank'>Demo</a>
       pre
         code.javascript.
@@ -117,26 +118,49 @@ block content
               });
           });
 
+    div(id='method_one_discuss', class='step slide', data-z='-6000', data-x='800', data-y='-2200', data-rotate='-45')
+      h1(class='title') Method #1: Callback Hell
+      ul
+        li <strong>30</strong> lines of code
+        li <strong>4.5</strong> average indentation level
+        li <strong>8</strong> max indentation level
+        li Not DRY (it repeats itself n times, where n is the number of sites)
+        li Scaling requires writing more code
+        li Difficult to read
+        li Requires all requests to be successful
 
-    div(id='method_two', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='6500', data-y='-1800' data-scale='5')
+    div(id='method_two', class='step slide', data-z='-9000', data-x='1600', data-y='-2200', data-rotate='45')
       h1(class='title') Method #2: Callbacks with Counter <a href='/callback-counter/' target='_blank'>Demo</a>
       pre
         code.javascript.
+          var sites = ['detroitnews.com', 'freep.com', ...];
           var articles = [];
           var response_counter = 0;
-          for (var i = 0; i < config.sites.length; i++) {
-              var site = config.sites[i];
+          for (var i = 0; i < sites.length; i++) {
+              var site = sites[i];
               get(compile_url(site), function(index, err, response) {
                   if (err) throw err;
                   articles = articles.concat(process_response(response));
                   response_counter++;
-                  if (response_counter == config.sites.length) {
+                  if (response_counter == sites.length) {
                     console.log(articles);
                   }
               }.bind(this, i));
           }
 
-    div(id='method_three', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='12200', data-y='-1800' data-scale='5')
+    div(id='method_two_discuss', class='step slide', data-z='-12000', data-x='1600', data-y='-3200', data-rotate='90')
+      h1(class='title') Method #2: Callbacks with Counter
+      ul
+        li <strong>13</strong> lines of code
+        li <strong>2.2</strong> average indentation level
+        li <strong>4</strong> max indentation level
+        li DRY (Don't repeat yourself)
+        li Fairly readable
+        li Scaling only requires adding to an array
+        li Looping requests can cause context issues
+        li Requires all requests to be successful
+
+    div(id='method_three', class='step slide', data-z='-15000', data-x='1600', data-y='-3200', data-rotate='135')
       h1(class='title') Method #3: Third Party Library '<a href='https://github.com/caolan/async#parallel'>async</a>' <a href='/parallel/' target='_blank'>Demo</a>
       pre
         code.javascript.
@@ -159,7 +183,19 @@ block content
               console.log(articles);
           });
 
-    div(id='method_four', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='17800', data-y='-1800' data-scale='5')
+    div(id='method_three_discuss', class='step slide', data-z='-18000', data-x='1600', data-y='-4200', data-rotate='180')
+      h1(class='title') Method #3: Third Party Library '<a href='https://github.com/caolan/async#parallel'>async</a>'
+      ul
+        li <strong>15</strong> lines of code
+        li <strong>2.1</strong> average indentation level
+        li <strong>4</strong> max indentation level
+        li DRY
+        li Readable
+        li Scaling only requires adding to an array
+        li Does not require all requests to be successful
+        li Still relies on callbacks which can lead to nesting
+
+    div(id='method_four', class='step slide', data-z='-21000', data-x='1600', data-y='-4200', data-rotate='225')
       h1(class='title') Method #4: Promises using '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>' <a href='/promise/' target='_blank'>Demo</a>
       pre
         code.javascript.
@@ -177,7 +213,23 @@ block content
               throw err;
           });
 
-    div(id='method_five', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='23400', data-y='-1800' data-scale='5')
+    div(id='method_four_discuss', class='step slide', data-z='-24000', data-x='1600', data-y='-5200', data-rotate='270')
+      h1(class='title') Method #4: Promises using '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>' <a href='/promise/' target='_blank'>Demo</a>
+      ul
+        li <strong>13</strong> lines of code
+        li <strong>1.6</strong> average indentation level
+        li <strong>3</strong> max indentation level
+        li DRY
+        li Excellent error handling
+        li Readable
+        li Scaling only requires adding to an array
+        li Does not require all requests to be successful
+        li Relies on third-party library
+        li Synchronous chanining of callbacks
+        li Still relies on callbacks which can lead to nesting
+        li Slower than vanilla callbacks <a href='https://github.com/spion/async-compare'><i class='fa fa-github'></i> async-compare</a>
+
+    div(id='method_five', class='step slide', data-z='-27000', data-x='1600', data-y='-5200', data-rotate='315')
       h1(class='title') Method #5: Coroutines using ES6 & '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>' <a href='/coroutine/' target='_blank'>Demo</a>
       pre
         code.javascript.
@@ -199,7 +251,21 @@ block content
             console.log(articles);
           }))();
 
-    div(id='method_six', class='step slide big-slide' data-z='-3000' data-rotate='-90' data-x='29000', data-y='-1800' data-scale='5')
+    div(id='method_five_discuss', class='step slide', data-z='-30000', data-x='1600', data-y='-6200', data-rotate='360')
+      h1(class='title') Method #5: Coroutines using ES6 & '<a href='https://github.com/petkaantonov/bluebird'>bluebird</a>'
+      ul
+        li <strong>11</strong> lines of code
+        li <strong>1.3</strong> average indentation level
+        li <strong>2</strong> max indentation level
+        li DRY
+        li Excellent error handling
+        li Readable
+        li Relies on third-party library and ES6
+        li Slower than vanilla callbacks <a href='https://github.com/spion/async-compare'><i class='fa fa-github'></i> async-compare</a>
+        li Coroutines are a difficult concept to grasp
+        li Code flow looks synchronous but is actually asynchronous
+
+    div(id='method_six', class='step slide', data-z='-33000', data-x='1600', data-y='-6200', data-rotate='405')
       h1(class='title') Method #6: Async/Await using ES7
       pre
         code.javascript.
@@ -220,3 +286,46 @@ block content
             }
             console.log(articles);
           }))();
+
+    div(id='compare', class='step slide', data-z='10000', data-x='0', data-y='0', data-scale='5')
+      h1(class='title') Comparison
+      table(style='width: 100%;')
+        thead
+          tr.text-center
+            th Method #
+            th Paradigm
+            th LoC
+            th Avg. Indent
+            th Max. Indent
+        tbody
+          tr.text-center
+            td 1
+            td Callback Hell
+            td 30
+            td 4.5
+            td 8
+          tr.text-center
+            td 2
+            td Callback Counter
+            td 13
+            td 2.2
+            td 4
+          tr.text-center
+            td 3
+            td Parallel
+            td 15
+            td 2.1
+            td 4
+          tr.text-center
+            td 4
+            td Promise
+            td 13
+            td 1.6
+            td 3
+          tr.text-center
+            td 5
+            td Coroutine
+            td 11
+            td 1.3
+            td 2
+
