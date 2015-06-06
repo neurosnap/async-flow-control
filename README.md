@@ -15,7 +15,7 @@ Method #|  Paradigm        |LoC |Avg. Indent|Max. Indent
     4   | Promise          | 13 |    1.6    |     3
     5   | Coroutine        | 11 |    1.3    |     2
 
-[Why is code indentation levels important?](https://github.com/neurosnap/code-nest)
+[Why are code indentation levels important?](https://github.com/neurosnap/code-nest)
 
 Stack
 -----
