@@ -37,12 +37,7 @@
   },
   "browserify": {
     "transform": [
-      [
-        "babelify",
-        {
-          "stage": 0
-        }
-      ],
+      ["babelify", { "stage": 0}],
       "browserify-shim"
     ]
   },

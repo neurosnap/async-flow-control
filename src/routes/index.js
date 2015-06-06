@@ -130,6 +130,21 @@ router.get('/coroutine/', Promise.coroutine(function* (req, res, next) {
   res.json(articles);
 }));
 
+// Third party library 'bluebird' coroutines
+router.get('/await/', async function(req, res, next) {
+  let articles = [];
+  let responses;
+  try {
+    responses = await Promise.all([for (site of sites) getAsync(compile_url(site))]);
+  } catch (err) {
+    throw err;
+  }
+  for (let i = 0; i < responses.length; i++) {
+    articles = articles.concat(process_response(responses[i]));
+  }
+  res.json(articles);
+});
+
 function process_response(response) {
   if (Array.isArray(response)) {
     response = response[0];
