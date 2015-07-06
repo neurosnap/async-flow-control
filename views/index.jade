@@ -273,11 +273,11 @@ block content
             let articles = [];
             let responses;
             try {
-                //responses = await [for (site of config.sites) getAsync(compile_url(site))];
-                responses = await [
+                //responses = await Promise.all([for (site of config.sites) getAsync(compile_url(site))]);
+                responses = await Promise.all([
                     getAsync(compile_url('detroitnews.com')),
                     getAsync(compile_url('freep.com'))
-                ];
+                ]);
             } catch (err) {
                 throw err;
             }
