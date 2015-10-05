@@ -29,6 +29,6 @@ node_modules
 config.js
 public/bower
 public/css
-public/js/dist
+public/js/
 dist
 *.log

@@ -13,8 +13,8 @@ var babelify = require("babelify");
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
-var js_src = './public/js/src/';
-var js_dist = './public/js/dist/';
+var js_src = './src/client/';
+var js_dist = './public/js/';
 var js_bundle = ['index.js'];
 
 gulp.task('less', function() {
@@ -43,7 +43,7 @@ gulp.task('watch', function() {
     });
   });
 
-  gulp.watch('./public/less/**/*.less', ['less']);
+  gulp.watch('./src/less/**/*.less', ['less']);
 });
 
 gulp.task('babel', function() {
@@ -52,7 +52,7 @@ gulp.task('babel', function() {
 
 function lessify() {
   gutil.log('Generating CSS files');
-  return gulp.src('./public/less/**/*.less')
+  return gulp.src('./src/less/**/*.less')
     .pipe(less({
       paths: [path.join(__dirname, 'less', 'includes')]
     }))
@@ -60,7 +60,7 @@ function lessify() {
 }
 
 function babeljs(src, dist) {
-  if (typeof src === 'undefined') src = './src/**/*.js';
+  if (typeof src === 'undefined') src = './src/server/**/*.js';
   if (typeof dist === 'undefined') dist = './dist';
 
   gutil.log('Generating ES6 -> ES5 files');

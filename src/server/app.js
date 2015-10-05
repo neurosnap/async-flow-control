@@ -1,24 +1,21 @@
 'use strict';
 
+import debug from 'debug';
+var logger = debug("app:app");
 import express from 'express';
 import path from 'path';
 import favicon from 'serve-favicon';
 import morgan from 'morgan';
-import log4js from 'log4js';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import { db } from '../config';
-import mail from './mail';
-import logger from './logger';
-import routes from './routes/index';
+import routes from './routes';
 
 var app = express();
 var router = express.Router();
 
 var PACKAGE_DIR = path.dirname(__dirname);
 
-// view engine setup
 app.set('views', path.join(PACKAGE_DIR, 'views'));
 app.set('view engine', 'jade');
 
@@ -28,15 +25,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(PACKAGE_DIR, 'public')));
-app.use(log4js.connectLogger(logger, { level: log4js.levels.DEBUG }));
 
 app.use('/', routes);
-
-router.get('/error', function(req, res, next) {
-  return next(new Error(app.get('env')));
-});
-
-app.use(router);
 
 // development error handler
 // will print stacktrace
@@ -56,29 +46,11 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   logger.error(err);
 
-  mail.mailOptions.text = `
-  Status: ${err.status}
-  -----
-  Request: ${req.originalUrl}
-  -----
-  Error: ${err.message}
-  -----
-  Stacktrace: ${err.stack}`;
-
-  mail.transporter.sendMail(mail.mailOptions, function(error, info) {
-    logger.error(error);
-  });
-
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
     error: {}
   });
-});
-
-process.on('SIGTERM', function () {
-  logger.info("Closing nodejs application ...");
-  app.close();
 });
 
 module.exports = app;

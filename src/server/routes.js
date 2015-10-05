@@ -2,13 +2,27 @@
 
 import polyfill from 'babel/polyfill';
 import express from 'express';
+import debug from 'debug';
+var logger = debug("app:routes");
 import _ from 'lodash';
 import Promise from 'bluebird';
 import async from 'async';
 import { get } from 'needle';
 
-import { api_key, sites } from '../../config';
-import logger from '../logger';
+var api_key = process.env.API_KEY;
+if (typeof api_key === "undefined") {
+  throw new Error("Server requires a chartbeat API key.");
+}
+
+var sites = [
+  'detroitnews.com',
+  'freep.com',
+  'battlecreekenquirer.com',
+  'hometownlife.com',
+  'lansingstatejournal.com',
+  'livingstondaily.com',
+  'thetimesherald.com'
+];
 
 var router = express.Router();
 var getAsync = Promise.promisify(get);
