@@ -32,3 +32,4 @@ public/css
 public/js/
 dist
 *.log
+conf/supervisor.conf
